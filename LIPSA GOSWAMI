@@ -1,0 +1,74 @@
+package bca.springcontanior;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.Scanner;
+
+public class MenuApp {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        Menu menu = (Menu) context.getBean("menu");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        do {
+            menu.display();
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            menu.execute(choice);
+        } while (choice != 0);
+    }
+}
+
+
+public interface Menu {
+    void display();
+    void execute(int choice);
+}
+
+
+public class MainMenu implements Menu {
+    private UserService userService;
+
+    public MainMenu(UserService userService) {
+        this.userService = userService;
+    }
+
+    @Override
+    public void display() {
+        System.out.println("1. Add User");
+        System.out.println("2. View Users");
+        System.out.println("0. Exit");
+    }
+
+    @Override
+    public void execute(int choice) {
+        switch (choice) {
+            case 1:
+                addUser();
+                break;
+            case 2:
+                viewUsers();
+                break;
+            case 0:
+                System.out.println("Exiting...");
+                break;
+            default:
+                System.out.println("Invalid choice");
+        }
+    }
+
+    private void addUser() {
+        // Logic to add a user
+        userService.addUser();
+    }
+
+    private void viewUsers() {
+        // Logic to view all users
+        userService.viewUsers();
+    }
+}
+
+
+
