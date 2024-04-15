@@ -1,0 +1,14 @@
+package bca.springcontanior;
+
+public class UserService {
+    public void addUser() {
+        // Logic to add a user
+        System.out.println("User added successfully!");
+    }
+
+    public void viewUsers() {
+        // Logic to view all users
+        System.out.println("List of users:");
+        // Fetch users and display
+    }
+}
